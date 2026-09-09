@@ -1,73 +1,70 @@
-import { createClient } from '@/lib/supabase/server';
-import QRCodeCard from '@/Components/QRCodeCard';
-import { notFound } from 'next/navigation';
+import { BadgeCheck, CheckCircle2, Download } from 'lucide-react';
+import { QRCodeSVG } from 'qrcode.react';
+import Sidebar from '@/Components/Sidebar';
 
-export default async function PassPage({ params }: { params: { id: string } }) {
-  const { id } = params;
+const attendee = {
+  name: 'Tinashe Smith',
+  organisation: 'uncommon.org',
+  role: 'Partner',
+  email: 'tinashe@uncommon.org',
+  eventDates: '9–11 March 2026',
+  location: 'Harare, Zimbabwe',
+  qrCode: 'OAK-2026-7842-XKPH',
+};
 
-  // Initialize Supabase server client from your lib/supabase/server.ts
-  const supabase = await createClient();
-
-  // Fetch attendee details using the unique QR ID
-  const { data: attendee, error } = await supabase
-    .from('attendees')
-    .select('full_name, organization, role, qr_code_id')
-    .eq('qr_code_id', id)
-    .single();
-
-  if (error || !attendee) {
-    notFound();
-  }
-
+export default function PassPage() {
   return (
-    <main className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-        
-        {/* Pass Header Banner */}
-        <div className="bg-emerald-700 text-white p-6 text-center">
-          <p className="text-xs font-semibold tracking-wider uppercase opacity-90">
-            OAK Zimbabwe Partner Gathering
-          </p>
-          <h1 className="text-xl font-bold mt-1">Digital Access Pass</h1>
-          <p className="text-xs opacity-75 mt-0.5">Cresta Lodge, Harare · 2026</p>
-        </div>
+    <div className="app-shell">
+      <Sidebar active="register" />
 
-        {/* Pass Content Body */}
-        <div className="p-6 flex flex-col items-center text-center space-y-6">
-          
-          {/* Attendee Info */}
-          <div className="space-y-1">
-            <h2 className="text-2xl font-bold text-gray-900 leading-tight">
-              {attendee.full_name}
-            </h2>
-            <p className="text-sm font-medium text-emerald-800">
-              {attendee.role}
-            </p>
-            <p className="text-sm text-gray-500 font-medium">
-              {attendee.organization}
-            </p>
+      <main className="content-shell">
+        <div className="content-panel">
+          <div className="pass-banner">
+            <div className="pass-banner-badge">
+              <CheckCircle2 className="h-5 w-5 text-emerald-300" />
+            </div>
+            <div className="pass-banner-copy">
+              <small>Registration complete</small>
+              <h2>You&apos;re Registered, Tinashe!</h2>
+              <p>{attendee.organisation}</p>
+            </div>
           </div>
 
-          {/* QR Code Container */}
-          <div className="w-full flex justify-center py-2">
-            <QRCodeCard qrCodeId={attendee.qr_code_id} size={210} />
+          <section className="pass-card">
+            <div className="qr-label">Your entry pass</div>
+            <div className="qr-box">
+              <div className="qr-code">
+                <QRCodeSVG value={attendee.qrCode} size={180} bgColor="#ffffff" fgColor="#122d4d" level="H" />
+              </div>
+              <div className="qr-id">{attendee.qrCode}</div>
+              <div className="pass-note">Present at event entrance for check-in</div>
+            </div>
+          </section>
+
+          <section className="pass-details">
+            <h3 className="pass-details-header">Registration details</h3>
+            <div className="details-list">
+              <div className="detail-row"><span>Name</span><span>{attendee.name}</span></div>
+              <div className="detail-row"><span>Organisation</span><span>{attendee.organisation}</span></div>
+              <div className="detail-row"><span>Role</span><span>{attendee.role}</span></div>
+              <div className="detail-row"><span>Email</span><span>{attendee.email}</span></div>
+              <div className="detail-row"><span>Event dates</span><span>{attendee.eventDates}</span></div>
+              <div className="detail-row"><span>Location</span><span>{attendee.location}</span></div>
+            </div>
+          </section>
+
+          <div style={{ display: 'grid', gap: 10 }}>
+            <button className="primary-action" type="button">
+              <Download className="h-5 w-5" />
+              Download QR Code
+            </button>
+            <button className="secondary-link" type="button" style={{ background: 'transparent', border: 'none', cursor: 'pointer' }}>
+              <BadgeCheck className="h-4 w-4 mr-2" />
+              Register another attendee
+            </button>
           </div>
-
-          {/* Scanning Instructions */}
-          <div className="bg-emerald-50 rounded-lg p-3 text-xs text-emerald-900 border border-emerald-100 w-full">
-            Show this QR code at the check-in desk upon arrival each day for rapid scanning.
-          </div>
-
         </div>
-
-        {/* Card Footer */}
-        <div className="bg-gray-50 px-6 py-3 border-t border-gray-100 text-center">
-          <p className="text-[11px] text-gray-400">
-            Official Event Pass · Non-Transferable
-          </p>
-        </div>
-
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }
