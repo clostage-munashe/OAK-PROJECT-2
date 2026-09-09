@@ -1,22 +1,199 @@
-// import Link from "next/link";
-// import SiteShell from "../site-shell";
+"use client";
 
-// export default function RegisterPage() {
-//   return (
-//     <SiteShell>
-//       <section className="space-y-5">
-//         <header className="space-y-1">
-//           <h1 className="text-[18px] font-bold">Register</h1>
-//           <p className="text-[9px] text-slate-400">Join the OAK Partner Convening 2026</p>
-//         </header>
-//         <div className="space-y-4 rounded-2xl border border-slate-100 bg-white p-4 shadow-[0_3px_9px_rgba(24,42,68,0.08)]">
-//           <label className="block text-[9px] font-semibold uppercase tracking-[0.12em] text-slate-400">Name<input className="mt-1.5 block w-full rounded-lg border border-slate-200 px-3 py-2 text-[10px] outline-none focus:border-[#142f55]" placeholder="Your name" /></label>
-//           <label className="block text-[9px] font-semibold uppercase tracking-[0.12em] text-slate-400">Organisation<input className="mt-1.5 block w-full rounded-lg border border-slate-200 px-3 py-2 text-[10px] outline-none focus:border-[#142f55]" placeholder="Your organisation" /></label>
-//           <label className="block text-[9px] font-semibold uppercase tracking-[0.12em] text-slate-400">Email<input type="email" className="mt-1.5 block w-full rounded-lg border border-slate-200 px-3 py-2 text-[10px] outline-none focus:border-[#142f55]" placeholder="you@example.org" /></label>
-//           <button className="w-full rounded-lg bg-[#142f55] py-2.5 text-[10px] font-semibold text-white">Save registration</button>
-//         </div>
-//         <p className="text-center text-[9px] text-slate-400">Already registered? <Link href="/programme" className="font-semibold text-[#142f55]">View programme</Link></p>
-//       </section>
-//     </SiteShell>
-//   );
-// }
+// import { useState } from "react";
+import { useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+
+export default function RegisterPage() {
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [organization, setOrganization] = useState("");
+  const [jobTitle, setJobTitle] = useState("");
+  const [dietaryRequirements, setDietaryRequirements] = useState("");
+  const [accessibilityRequirements, setAccessibilityRequirements] =
+    useState("");
+  const [consent, setConsent] = useState(false);
+
+  return (
+    <main className="min-h-screen bg-[#F3F5F8] px-4 py-10">
+      <div className="mx-auto w-full max-w-[576px] space-y-6">
+
+        {/* Hero */}
+        <section className="rounded-3xl bg-gradient-to-r from-[#172B4D] to-[#203D66] p-8 text-white">
+          <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.05em] text-slate-300">
+            OAK Partner Convening 2026
+          </p>
+
+          <h1 className="text-[30px] font-extrabold leading-[36px]">
+            Register for the Event
+          </h1>
+
+          <p className="mt-3 max-w-[450px] text-[14px] leading-5 text-slate-300">
+            Complete the form below to register for the OAK Partner Convening
+            2026.
+          </p>
+        </section>
+
+        {/* Form */}
+        <section className="rounded-3xl border border-[#F1F5F9] bg-white p-8 shadow-sm">
+          <div className="mb-6">
+            <h2 className="text-[18px] font-bold leading-7 text-[#162E53]">
+              Registration Details
+            </h2>
+
+            <p className="mt-1 text-[11px] text-slate-400">
+              Please provide your details below.
+            </p>
+          </div>
+
+          <form className="space-y-5">
+
+            {/* Full Name */}
+            <div>
+              <label className="mb-2 block text-[11px] font-bold uppercase tracking-[0.05em] text-slate-500">
+                Full Name
+              </label>
+
+              <input
+                type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                placeholder="Enter your full name"
+                required
+                className="h-12 w-full rounded-xl border border-transparent bg-[#EEF2F6] px-4 py-3 text-[14px] text-[#334155] outline-none transition focus:border-[#162E53]"
+              />
+            </div>
+
+            {/* Email */}
+            <div>
+              <label className="mb-2 block text-[11px] font-bold uppercase tracking-[0.05em] text-slate-500">
+                Email Address
+              </label>
+
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                required
+                className="h-12 w-full rounded-xl border border-transparent bg-[#EEF2F6] px-4 py-3 text-[14px] text-[#334155] outline-none transition focus:border-[#162E53]"
+              />
+            </div>
+
+            {/* Phone */}
+            <div>
+              <label className="mb-2 block text-[11px] font-bold uppercase tracking-[0.05em] text-slate-500">
+                Phone Number
+              </label>
+
+              <input
+                type="tel"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="Enter your phone number"
+                className="h-12 w-full rounded-xl border border-transparent bg-[#EEF2F6] px-4 py-3 text-[14px] text-[#334155] outline-none transition focus:border-[#162E53]"
+              />
+            </div>
+
+            {/* Organisation */}
+            <div>
+              <label className="mb-2 block text-[11px] font-bold uppercase tracking-[0.05em] text-slate-500">
+                Organisation
+              </label>
+
+              <input
+                type="text"
+                value={organization}
+                onChange={(e) => setOrganization(e.target.value)}
+                placeholder="Enter your organisation"
+                className="h-12 w-full rounded-xl border border-transparent bg-[#EEF2F6] px-4 py-3 text-[14px] text-[#334155] outline-none transition focus:border-[#162E53]"
+              />
+            </div>
+
+            {/* Job Title */}
+            <div>
+              <label className="mb-2 block text-[11px] font-bold uppercase tracking-[0.05em] text-slate-500">
+                Job Title
+              </label>
+
+              <input
+                type="text"
+                value={jobTitle}
+                onChange={(e) => setJobTitle(e.target.value)}
+                placeholder="Enter your job title"
+                className="h-12 w-full rounded-xl border border-transparent bg-[#EEF2F6] px-4 py-3 text-[14px] text-[#334155] outline-none transition focus:border-[#162E53]"
+              />
+            </div>
+
+            {/* Requirements */}
+            <div className="space-y-4 rounded-2xl bg-[#EEF2F6] p-5">
+
+              <div>
+                <label className="mb-2 block text-[11px] font-bold uppercase tracking-[0.05em] text-slate-500">
+                  Dietary Requirements
+                </label>
+
+                <input
+                  type="text"
+                  value={dietaryRequirements}
+                  onChange={(e) =>
+                    setDietaryRequirements(e.target.value)
+                  }
+                  placeholder="e.g. Vegetarian, None"
+                  className="h-12 w-full rounded-xl bg-white px-4 py-3 text-[14px] text-[#334155] outline-none focus:ring-1 focus:ring-[#162E53]"
+                />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-[11px] font-bold uppercase tracking-[0.05em] text-slate-500">
+                  Accessibility Requirements
+                </label>
+
+                <input
+                  type="text"
+                  value={accessibilityRequirements}
+                  onChange={(e) =>
+                    setAccessibilityRequirements(e.target.value)
+                  }
+                  placeholder="Enter any accessibility requirements"
+                  className="h-12 w-full rounded-xl bg-white px-4 py-3 text-[14px] text-[#334155] outline-none focus:ring-1 focus:ring-[#162E53]"
+                />
+              </div>
+
+            </div>
+
+            {/* Consent */}
+            <label className="flex cursor-pointer items-start gap-3">
+              <input
+                type="checkbox"
+                checked={consent}
+                onChange={(e) => setConsent(e.target.checked)}
+                className="mt-1 h-4 w-4 accent-[#162E53]"
+              />
+
+              <span className="text-[11px] leading-5 text-slate-500">
+                I consent to my information being collected for event
+                registration and administration.
+              </span>
+            </label>
+
+            {/* Submit */}
+            <button
+              type="submit"
+              className="h-12 w-full rounded-xl bg-[#162E53] px-4 py-3 text-[14px] font-bold text-white transition hover:bg-[#203D66]"
+            >
+              Save Registration
+            </button>
+
+          </form>
+        </section>
+
+        <p className="text-center text-[11px] text-slate-400">
+          OAK Partner Convening 2026
+        </p>
+
+      </div>
+    </main>
+  );
+}
