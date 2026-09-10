@@ -1,4 +1,6 @@
 "use client";
+import { deprecated_requestOptimisticRouteCacheEntry } from "next/dist/client/components/segment-cache/cache";
+import { BARREL_OPTIMIZATION_PREFIX } from "next/dist/shared/lib/constants";
 import {useState} from "react";
 
 export default function Home() {
@@ -72,4 +74,4 @@ return (
       </form>
     </main>
   );
-}
+}                                          
