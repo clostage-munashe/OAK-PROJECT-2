@@ -2,7 +2,7 @@
 
 // import { useState } from "react";
 import { useState } from "react";
-import { createClient } from "@/lib/supabase/client";
+import SiteShell from "../site-shell";
 
 export default function RegisterPage() {
   const [fullName, setFullName] = useState("");
@@ -16,7 +16,8 @@ export default function RegisterPage() {
   const [consent, setConsent] = useState(false);
 
   return (
-    <main className="min-h-screen bg-[#F3F5F8] px-4 py-10">
+    <SiteShell>
+      <main className="min-h-screen py-2">
       <div className="mx-auto w-full max-w-[576px] space-y-6">
 
         {/* Hero */}
@@ -194,6 +195,7 @@ export default function RegisterPage() {
         </p>
 
       </div>
-    </main>
+      </main>
+    </SiteShell>
   );
 }

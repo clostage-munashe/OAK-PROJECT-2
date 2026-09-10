@@ -1,4 +1,8 @@
+"use client";
+
+import { useState } from "react";
 import { Download, File, FileText, Image as ImageIcon, Lightbulb, Plus } from "lucide-react";
+import ScheduleView from "../Components/programme-view";
 
 const notes = [
   ["MS", "Maria Schmidt", "Open Society Foundations", "Day 1 14:32", "The rights-based approaches session surfaced strong demand for a shared learning platform. OSF will follow up with MENA Rights Group on joint programming opportunities in the Mediterranean region."],
@@ -28,18 +32,9 @@ const resources = [
   ["Photo Gallery (High Res)", "ZIP · 184 MB · All Days"],
 ];
 
-export default function ProgrammeView() {
+function DocsView() {
   return (
     <section className="space-y-5">
-      <header className="space-y-1.5">
-        <h1 className="text-[18px] font-bold leading-none">Programme</h1>
-        <p className="text-[9px] font-medium text-slate-400">OAK Partner Convening 2026</p>
-        <div className="flex max-w-[275px] rounded-lg bg-[#e4e7ec] p-0.5 text-[8px] font-medium">
-          <button className="flex-1 rounded-md bg-white py-1.5 font-semibold shadow-sm">Schedule</button>
-          <button className="flex-1 rounded-md py-1.5 text-slate-600">Docs</button>
-        </div>
-      </header>
-
       <section className="space-y-2.5">
         <div className="flex items-center justify-between">
           <h2 className="flex items-center gap-1.5 text-[10px] font-bold"><FileText className="h-3 w-3" /> Session Notes</h2>
@@ -81,6 +76,24 @@ export default function ProgrammeView() {
           {resources.map(([title, meta]) => <div key={title} className="flex items-center justify-between rounded-xl border border-slate-100 bg-white p-2.5 shadow-[0_3px_9px_rgba(24,42,68,0.08)]"><div className="flex items-center gap-2"><span className="rounded-lg bg-slate-100 p-1.5 text-slate-500"><File className="h-3 w-3" /></span><div><h3 className="text-[8px] font-semibold text-slate-900">{title}</h3><p className="text-[7px] text-slate-400">{meta}</p></div></div><Download className="h-3 w-3 text-slate-400" /></div>)}
         </div>
       </section>
+    </section>
+  );
+}
+
+export default function ProgrammeView() {
+  const [activeTab, setActiveTab] = useState<"schedule" | "docs">("schedule");
+
+  return (
+    <section className="space-y-5">
+      <header className="space-y-1.5">
+        <h1 className="text-[18px] font-bold leading-none">Programme</h1>
+        <p className="text-[9px] font-medium text-slate-400">OAK Partner Convening 2026</p>
+        <div className="flex max-w-full rounded-lg bg-[#e4e7ec] p-0.5 text-[8px] font-medium">
+          <button type="button" onClick={() => setActiveTab("schedule")} className={`flex-1 rounded-md py-1.5 ${activeTab === "schedule" ? "bg-white font-semibold shadow-sm" : "text-slate-600"}`}>Schedule</button>
+          <button type="button" onClick={() => setActiveTab("docs")} className={`flex-1 rounded-md py-1.5 ${activeTab === "docs" ? "bg-white font-semibold shadow-sm" : "text-slate-600"}`}>Docs</button>
+        </div>
+      </header>
+      {activeTab === "schedule" ? <ScheduleView /> : <DocsView />}
     </section>
   );
 }
