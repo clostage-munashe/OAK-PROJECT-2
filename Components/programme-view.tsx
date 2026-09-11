@@ -14,15 +14,15 @@ export default function ScheduleView() {
   const [selectedDay, setSelectedDay] = useState(1);
 
   return (
-    <section className="space-y-5">
-      <div className="grid grid-cols-3 gap-2.5 sm:gap-3">
+    <section className="space-y-3">
+      <div className="grid grid-cols-3 gap-2">
         {days.map((item) => {
           const isSelected = selectedDay === item.day;
 
           return (
-            <button type="button" key={item.day} onClick={() => setSelectedDay(item.day)} className={`rounded-2xl p-3 text-left shadow-sm transition sm:p-4 ${isSelected ? "bg-[#172f58] text-white" : "border border-slate-100 bg-white text-slate-900 hover:border-slate-300"}`}>
+            <button type="button" key={item.day} onClick={() => setSelectedDay(item.day)} className={`rounded-[13px] p-2 text-left shadow-[0_3px_9px_rgba(24,42,68,0.08)] transition ${isSelected ? "bg-[#172f58] text-white" : "border border-slate-100 bg-white text-slate-900 hover:border-slate-300"}`}>
               <div className={`text-[8px] font-bold tracking-[0.16em] ${isSelected ? "text-slate-300" : "text-slate-400"}`}>{item.dayName}</div>
-              <div className="mt-1 text-[15px] font-extrabold sm:text-base">Day {item.day}</div>
+              <div className="mt-1 text-[12px] font-extrabold">Day {item.day}</div>
               <div className={`mt-0.5 text-[9px] ${isSelected ? "text-slate-300" : "text-slate-400"}`}>{item.date}</div>
             </button>
           );

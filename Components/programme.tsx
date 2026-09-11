@@ -1,19 +1,8 @@
 import React from "react";
-import {
-  Star,
-  MapPin,
-  ChevronDown,
-} from "lucide-react";
+import { Star, MapPin, ChevronDown } from "lucide-react";
 
-// ==============================
-// DATA TYPES
-// ==============================
-
-export type SessionType =
-  | "Plenary"
-  | "Breakout"
-  | "Workshop"
-  | "Social";
+// ── Types ──────────────────────────────────────────────────────────────
+export type SessionType = "Plenary" | "Breakout" | "Workshop" | "Social";
 
 export interface Session {
   id: string;
@@ -25,10 +14,7 @@ export interface Session {
   type: SessionType;
 }
 
-// ==============================
-// PROGRAMME DATA
-// ==============================
-
+// ── Data ───────────────────────────────────────────────────────────────
 export const sessions: Session[] = [
   {
     id: "1",
@@ -76,110 +62,71 @@ export const sessions: Session[] = [
   },
 ];
 
-// ==============================
-// CATEGORY COLORS
-// ==============================
-
+// ── Badge helpers ───────────────────────────────────────────────────────
 export const getTagBadgeStyle = (type: SessionType) => {
   switch (type) {
-    case "Plenary":
-      return "bg-indigo-50 text-indigo-900 border-indigo-200/60";
-
-    case "Breakout":
-      return "bg-amber-50 text-amber-700 border-amber-200/60";
-
-    case "Workshop":
-      return "bg-purple-50 text-purple-700 border-purple-200/60";
-
-    case "Social":
-      return "bg-orange-50 text-orange-700 border-orange-200/60";
+    case "Plenary":  return "bg-indigo-50  text-indigo-800  border-indigo-200/60";
+    case "Breakout": return "bg-amber-50   text-amber-700   border-amber-200/60";
+    case "Workshop": return "bg-purple-50  text-purple-700  border-purple-200/60";
+    case "Social":   return "bg-orange-50  text-orange-700  border-orange-200/60";
   }
 };
 
 export const getDotColor = (type: SessionType) => {
   switch (type) {
-    case "Plenary":
-      return "bg-indigo-900";
-
-    case "Breakout":
-      return "bg-amber-500";
-
-    case "Workshop":
-      return "bg-purple-500";
-
-    case "Social":
-      return "bg-orange-500";
+    case "Plenary":  return "bg-indigo-800";
+    case "Breakout": return "bg-amber-500";
+    case "Workshop": return "bg-purple-500";
+    case "Social":   return "bg-orange-500";
   }
 };
 
-// ==============================
-// FEATURED PROGRAMME
-// ==============================
+// ── Featured Card ───────────────────────────────────────────────────────
+export const FeaturedProgramme: React.FC = () => (
+  <div className="relative w-full overflow-hidden rounded-[18px] bg-gradient-to-br from-[#172239] via-[#1a2b4c] to-[#253961] px-5 py-5 text-white shadow-lg">
+    {/* Decorative circle */}
+    <div className="absolute bottom-[-40px] right-[-40px] h-40 w-40 rounded-full bg-white/5" />
 
-export const FeaturedProgramme: React.FC = () => {
-  return (
-    <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#172239] via-[#1a2b4c] to-[#253961] p-6 text-white shadow-lg mb-8">
-      
-      {/* Featured Label */}
-      <div className="flex items-center gap-3 mb-4">
-        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/10 backdrop-blur-md text-[10px] font-bold tracking-wider uppercase text-slate-200">
-          <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
-          FEATURED
-        </span>
-
-        <span className="text-xs text-slate-400 font-medium">
-          09:00 – 10:30
-        </span>
-      </div>
-
-      {/* Title */}
-      <h2 className="text-2xl font-extrabold tracking-tight mb-4 text-white">
-        Opening Plenary: Pathways to Impact
-      </h2>
-
-      {/* Speaker */}
-      <div className="flex items-center gap-2 mb-3">
-        <div className="w-6 h-6 rounded-full bg-slate-700 border border-slate-600 flex items-center justify-center text-[10px] font-bold text-slate-200">
-          D
-        </div>
-
-        <span className="text-xs text-slate-300 font-medium">
-          Dr. Helena Moreau · OAK Foundation
-        </span>
-      </div>
-
-      {/* Location */}
-      <div className="flex items-center gap-1.5 text-xs text-slate-400">
-        <MapPin className="w-3.5 h-3.5" />
-        <span>Main Hall A</span>
-      </div>
+    {/* FEATURED · time */}
+    <div className="mb-3 flex items-center gap-3">
+      <span className="inline-flex items-center gap-1.5 rounded-md bg-white/10 px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider text-slate-200 backdrop-blur-md">
+        <Star className="h-2.5 w-2.5 fill-amber-400 text-amber-400" />
+        FEATURED
+      </span>
+      <span className="text-[11px] font-medium text-slate-400">08:00 – 10:30</span>
     </div>
-  );
-};
 
-// ==============================
-// PROGRAMME LEGEND
-// ==============================
+    {/* Title */}
+    <h2 className="mb-3 text-[18px] font-extrabold leading-tight tracking-tight text-white">
+      Opening Plenary: Pathways to Impact
+    </h2>
 
+    {/* Speaker */}
+    <div className="mb-2.5 flex items-center gap-2">
+      <div className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-700 border border-slate-600 text-[8px] font-bold text-slate-200">
+        D
+      </div>
+      <span className="text-[11px] font-medium text-slate-300">
+        Dr. Helena Moreau · OAK Foundation
+      </span>
+    </div>
+
+    {/* Location */}
+    <div className="flex items-center gap-1.5 text-[11px] text-slate-400">
+      <MapPin className="h-3 w-3" />
+      <span>Main Hall A</span>
+    </div>
+  </div>
+);
+
+// ── Legend ─────────────────────────────────────────────────────────────
 export const ProgrammeLegend: React.FC = () => {
-  const types: SessionType[] = [
-    "Plenary",
-    "Breakout",
-    "Workshop",
-    "Social",
-  ];
-
+  const types: SessionType[] = ["Plenary", "Breakout", "Workshop", "Social"];
   return (
-    <div className="flex items-center gap-6 text-xs font-semibold mb-8 text-slate-600">
+    <div className="flex items-center gap-5 text-[11px] font-semibold text-slate-500">
       {types.map((type) => (
-        <div
-          key={type}
-          className="flex items-center gap-2 cursor-pointer"
-        >
-          <span
-            className={`w-2.5 h-2.5 rounded-full ${getDotColor(type)}`}
-          />
-
+        <div key={type} className="flex items-center gap-1.5">
+          <span className={`h-2 w-2 rounded-full ${getDotColor(type)}`} />
           <span>{type}</span>
         </div>
       ))}
@@ -187,159 +134,94 @@ export const ProgrammeLegend: React.FC = () => {
   );
 };
 
-// ==============================
-// TIME DIVIDER
-// ==============================
-
+// ── Time Divider ────────────────────────────────────────────────────────
 interface TimeDividerProps {
   time: string;
   label: string;
 }
 
-export const TimeDivider: React.FC<TimeDividerProps> = ({
-  time,
-  label,
-}) => {
-  return (
-    <div className="relative flex items-center justify-between text-xs font-medium text-slate-400">
-      <span className="font-mono text-slate-500 font-semibold">
-        {time}
-      </span>
+export const TimeDivider: React.FC<TimeDividerProps> = ({ time, label }) => (
+  <div className="flex items-center gap-3 text-[11px] text-slate-400">
+    <span className="shrink-0 font-mono font-semibold text-slate-500">{time}</span>
+    <div className="h-px flex-1 bg-slate-200" />
+    <span className="shrink-0">{label}</span>
+    <div className="h-px flex-1 bg-slate-200" />
+  </div>
+);
 
-      <div className="h-[1px] bg-slate-200 flex-1 mx-4" />
-
-      <span>{label}</span>
-
-      <div className="h-[1px] bg-slate-200 flex-1 ml-4" />
-    </div>
-  );
-};
-
-// ==============================
-// SESSION CARD
-// ==============================
-
+// ── Session Card ────────────────────────────────────────────────────────
 interface SessionCardProps {
   session: Session;
 }
 
-export const SessionCard: React.FC<SessionCardProps> = ({
-  session,
-}) => {
-  return (
-    <div className="bg-white rounded-2xl p-5 border border-slate-200/70 shadow-sm hover:shadow-md transition flex items-start gap-6">
-      
-      {/* Time */}
-      <div className="text-xs font-mono font-bold text-slate-700 pt-1 shrink-0">
-        {session.startTime}
+export const SessionCard: React.FC<SessionCardProps> = ({ session }) => (
+  <div className="flex items-start gap-4 rounded-[14px] border border-slate-100 bg-white px-4 py-3.5 shadow-[0_2px_8px_rgba(24,42,68,0.07)] transition hover:shadow-md">
 
-        <span className="block text-[10px] text-slate-400 font-normal text-right">
-          –{session.endTime}
+    {/* Time column */}
+    <div className="shrink-0 pt-0.5 font-mono text-[11px] font-bold text-slate-700 leading-tight">
+      {session.startTime}
+      <span className="block text-[10px] font-normal text-slate-400">
+        -{session.endTime}
+      </span>
+    </div>
+
+    {/* Content */}
+    <div className="flex-1 min-w-0">
+      <div className="flex items-start justify-between gap-3">
+        <h3 className="text-[13px] font-bold text-slate-900 leading-snug">
+          {session.title}
+        </h3>
+
+        {/* Badge */}
+        <span
+          className={`inline-flex shrink-0 items-center gap-1 rounded-full border px-2.5 py-0.5 text-[10px] font-semibold ${getTagBadgeStyle(session.type)}`}
+        >
+          <span className={`h-1.5 w-1.5 rounded-full ${getDotColor(session.type)}`} />
+          {session.type}
         </span>
       </div>
 
-      {/* Session Information */}
-      <div className="flex-1">
-        <div className="flex items-start justify-between gap-4">
-          
-          <h3 className="text-sm font-bold text-slate-900">
-            {session.title}
-          </h3>
+      {session.speaker && (
+        <p className="mt-1 text-[11px] text-slate-500">{session.speaker}</p>
+      )}
 
-          {/* Category Badge */}
-          <span
-            className={`px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1.5 shrink-0 border ${getTagBadgeStyle(
-              session.type
-            )}`}
-          >
-            <span
-              className={`w-1.5 h-1.5 rounded-full ${getDotColor(
-                session.type
-              )}`}
-            />
-
-            {session.type}
-          </span>
-        </div>
-
-        {/* Speaker */}
-        {session.speaker && (
-          <p className="text-xs text-slate-500 mt-2">
-            {session.speaker}
-          </p>
-        )}
-
-        {/* Location */}
-        <div className="flex items-center gap-1.5 text-xs text-slate-400 mt-2">
-          <MapPin className="w-3.5 h-3.5" />
-
-          <span>{session.location}</span>
-        </div>
+      <div className="mt-1.5 flex items-center gap-1 text-[11px] text-slate-400">
+        <MapPin className="h-3 w-3 shrink-0" />
+        <span>{session.location}</span>
       </div>
-
-      {/* Expand Button */}
-      <button
-        type="button"
-        className="text-slate-400 hover:text-slate-600 pt-1"
-        aria-label={`Expand ${session.title}`}
-      >
-        <ChevronDown className="w-4 h-4" />
-      </button>
     </div>
-  );
-};
 
-// ==============================
-// PROGRAMME LIST
-// ==============================
+    {/* Expand */}
+    <button
+      type="button"
+      aria-label={`Expand ${session.title}`}
+      className="shrink-0 pt-0.5 text-slate-300 hover:text-slate-500 transition"
+    >
+      <ChevronDown className="h-4 w-4" />
+    </button>
+  </div>
+);
 
+// ── Programme List ──────────────────────────────────────────────────────
 interface ProgrammeProps {
   filteredSessions?: Session[];
 }
 
-const Programme: React.FC<ProgrammeProps> = ({
-  filteredSessions = sessions,
-}) => {
-  return (
-    <div className="space-y-6">
-      
-      {/* Registration */}
-      <TimeDivider
-        time="08:00"
-        label="Registration & Welcome Coffee"
-      />
+const Programme: React.FC<ProgrammeProps> = ({ filteredSessions = sessions }) => (
+  <div className="space-y-3">
+    <TimeDivider time="08:00" label="Registration & Welcome Coffee" />
+    <TimeDivider time="10:30" label="Coffee Break" />
 
-      {/* Coffee Break */}
-      <TimeDivider
-        time="10:30"
-        label="Coffee Break"
-      />
+    {filteredSessions.slice(0, 2).map((s) => (
+      <SessionCard key={s.id} session={s} />
+    ))}
 
-      {/* Sessions */}
-      {filteredSessions.slice(0, 2).map((session) => (
-        <SessionCard
-          key={session.id}
-          session={session}
-        />
-      ))}
+    <TimeDivider time="12:00" label="Networking Lunch" />
 
-      {/* Lunch */}
-      <div className="pt-2">
-        <TimeDivider
-          time="12:00"
-          label="Networking Lunch"
-        />
-      </div>
-
-      {/* Remaining Sessions */}
-      {filteredSessions.slice(2).map((session) => (
-        <SessionCard
-          key={session.id}
-          session={session}
-        />
-      ))}
-    </div>
-  );
-};
+    {filteredSessions.slice(2).map((s) => (
+      <SessionCard key={s.id} session={s} />
+    ))}
+  </div>
+);
 
 export default Programme;
