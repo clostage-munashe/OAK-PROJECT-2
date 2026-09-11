@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Camera, ChevronRight, CircleHelp, ScanLine, Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import AdminShell from "../admin-shell";
@@ -8,9 +8,18 @@ import { Attendee, getAttendees } from "../../../lib/event-store";
 
 export default function CheckInPage() {
   const router = useRouter();
-  const [attendees] = useState<Attendee[]>(() => getAttendees());
+  const [attendees, setAttendees] = useState<Attendee[]>(() => getAttendees());
   const [manualCode, setManualCode] = useState("");
   const scannerRef = useRef<{ stop: () => Promise<void> } | null>(null);
+
+  useEffect(() => {
+    fetch("/api/admin/attendees")
+      .then((response) => response.json())
+      .then((payload: { configured?: boolean; attendees?: Attendee[] }) => {
+        if (payload.configured && payload.attendees) setAttendees(payload.attendees);
+      })
+      .catch(() => undefined);
+  }, []);
 
   async function startCamera() {
     const { Html5Qrcode } = await import("html5-qrcode");

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Download, File, FileText, Image as ImageIcon, Lightbulb, Plus } from "lucide-react";
-import ScheduleView from "../Components/programme-view-DESKTOP-9G5UM4S";
+import ScheduleView from "../Components/programme-view";
 
 const notes = [
   ["MS", "Maria Schmidt", "Open Society Foundations", "Day 1 14:32", "The rights-based approaches session surfaced strong demand for a shared learning platform. OSF will follow up with MENA Rights Group on joint programming opportunities in the Mediterranean region."],
@@ -88,9 +88,9 @@ export default function ProgrammeView() {
       <header className="space-y-1">
         <h1 className="text-[16px] font-bold leading-none">Programme</h1>
         <p className="text-[7px] font-medium text-slate-400">OAK Partner Convening 2026</p>
-        <div className="flex h-[40px] w-[602px] max-w-full items-center gap-[398px] rounded-[7px] bg-[#e4e7ec] p-[4px]">
-          <button type="button" onClick={() => setActiveTab("schedule")} className={`h-[32px] w-[80px] shrink-0 rounded-[12px] px-[14px] py-[8px] text-center text-[12px] leading-[16px] font-semibold [font-family:'Avenir_Next_LT_Pro','Avenir_Next',sans-serif] ${activeTab === "schedule" ? "bg-white shadow-sm" : "text-slate-600"}`}>Schedule</button>
-          <button type="button" onClick={() => setActiveTab("docs")} className={`h-[32px] w-[116px] shrink-0 rounded-[12px] px-[44px] py-[8px] text-center text-[12px] leading-[16px] font-semibold [font-family:'Avenir_Next_LT_Pro','Avenir_Next',sans-serif] ${activeTab === "docs" ? "bg-white shadow-sm" : "text-slate-600"}`}>Docs</button>
+        <div className="flex h-[40px] w-full max-w-[602px] items-center gap-2 rounded-[7px] bg-[#e4e7ec] p-[4px] text-[7px] font-medium lg:gap-[398px]">
+          <button type="button" onClick={() => setActiveTab("schedule")} className={`h-[32px] w-[80px] shrink-0 rounded-[12px] px-[14px] py-2 ${activeTab === "schedule" ? "bg-white font-semibold shadow-sm" : "text-slate-600"}`}>Schedule</button>
+          <button type="button" onClick={() => setActiveTab("docs")} className={`h-[32px] w-[116px] shrink-0 rounded-[12px] px-[44px] py-2 ${activeTab === "docs" ? "bg-white font-semibold shadow-sm" : "text-slate-600"}`}>Docs</button>
         </div>
       </header>
       {activeTab === "schedule" ? <ScheduleView /> : <DocsView />}

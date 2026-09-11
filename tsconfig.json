@@ -30,5 +30,10 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": ["node_modules", "Components/programme-view.tsx"]
+  "exclude": [
+    "node_modules",
+    "Components/programme-view.tsx",
+    "Components/Programme.tsx",
+    "components/Sidebar.tsx"
+  ]
 }
